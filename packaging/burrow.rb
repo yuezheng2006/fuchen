@@ -8,7 +8,7 @@
 #
 cask "burrow" do
   version "0.4.0"
-  sha256 "REPLACE_WITH_SHA256_FROM_release.sh"
+  sha256 "1db64cb10da2c63b203b1dc012c8b57b27003882f4b47db93da8869b7bb67c33"
 
   url "https://github.com/caezium/Burrow/releases/download/v#{version}/Burrow-#{version}.zip"
   name "Burrow"
