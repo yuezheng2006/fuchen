@@ -1,24 +1,12 @@
-# Burrow 0.5.0 — 中文版
+# Burrow 0.5.1 — 图标修复 + 签名流程
 
-首个面向中文用户的 Burrow 版本：界面默认简体中文，可在设置中切换 English。
+## 本版变更
+- **修复 Dock / Finder 图标**：Release 构建现正确嵌入 `AppIcon.icns`（此前 swiftc 打包只有 xcassets 目录，系统不显示图标）
+- **签名/公证脚本**：`scripts/sign-and-notarize.sh` + `docs/SIGNING.md`，配置 Developer ID 后用户无需 `xattr -cr`
 
-## 新特性
-- **简体中文界面** — 五大工具、设置、菜单栏 HUD、历史页等全面中文化
-- **语言切换** — 设置 → 语言：简体中文 / English
-- **中文文档** — `README.zh-CN.md`
-- **测试增强** — 47 项单元测试（含 L10n / Tool 双语覆盖）
-
-## 五大工具
-- **清理** — 预览可释放空间，然后正式清理
-- **软件** — 已安装应用管理 + Homebrew 更新
-- **优化** — 一键安全维护
-- **分析** — 磁盘 squarified 树图
-- **状态** — 实时系统监控仪表盘
+## 安装（未公证构建）
+若 Release 尚未公证，首次打开仍需右键 → 打开。公证版将直接双击可用。
 
 ## 系统要求
 - macOS 14+
 - `brew install mole`
-
-## 安装说明
-未签名构建。推荐下载 **DMG**（拖入「应用程序」）或 **ZIP**（解压到 `/Applications`），然后执行：
-`xattr -cr /Applications/Burrow.app`，或首次启动时右键 → 打开。

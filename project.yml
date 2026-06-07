@@ -36,8 +36,8 @@ targets:
         CFBundleLocalizations: [zh-Hans, en]
         LSUIElement: true   # menu-bar agent, no Dock icon
         CFBundleDisplayName: Burrow
-        CFBundleShortVersionString: "0.5.0"
-        CFBundleVersion: "2"
+        CFBundleShortVersionString: "0.5.1"
+        CFBundleVersion: "3"
         NSHumanReadableCopyright: "MIT License. Mole CLI © tw93. Independent, not affiliated with mole.fit."
     entitlements:
       path: Resources/Burrow.entitlements
