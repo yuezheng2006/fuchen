@@ -37,8 +37,36 @@ enum L10n {
     static func translateMoleString(_ text: String) -> String {
         guard Store.language == .zhHans else { return text }
 
-        // Health messages
+        // Clean/Optimize output translations
         let translations: [String: String] = [
+            // Clean task categories
+            "SUMMARY": "概览",
+            "SYSTEM": "系统",
+            "USER ESSENTIALS": "用户数据",
+            "BROWSER": "浏览器",
+            "DEVELOPER": "开发工具",
+            "APPLICATIONS": "应用程序",
+
+            // Common messages
+            "System-level cleanup enabled, sudo session active": "已启用系统级清理，管理员权限激活",
+            "User-level cleanup will proceed automatically": "用户级清理将自动进行",
+            "Whitelist": "白名单",
+            "core patterns active": "个核心规则生效",
+
+            // System items
+            "System crash reports": "系统崩溃报告",
+            "System logs": "系统日志",
+            "Accessible rebuildable GPU caches": "可重建的 GPU 缓存",
+            "System diagnostic logs": "系统诊断日志",
+            "Power logs": "电源日志",
+            "Nothing to clean": "无需清理",
+
+            // User items
+            "User app cache": "用户应用缓存",
+            "User app logs": "用户应用日志",
+            "items": "项",
+
+            // General
             "Restart Recommended": "建议重启",
             "Good": "良好",
             "Excellent": "优秀",
@@ -57,7 +85,7 @@ enum L10n {
 
         var result = text
         for (en, zh) in translations {
-            result = result.replacingOccurrences(of: en, with: zh)
+            result = result.replacingOccurrences(of: en, with: zh, options: .caseInsensitive)
         }
         return result
     }

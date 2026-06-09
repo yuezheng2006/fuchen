@@ -239,14 +239,14 @@ struct TaskReportView: View {
                     ForEach(Array(groups.enumerated()), id: \.offset) { index, group in
                         GlassCard {
                             VStack(alignment: .leading, spacing: 7) {
-                                Text(group.title.uppercased())
+                                Text(L10n.translateMoleString(group.title).uppercased())
                                     .font(Brand.mono(10, .bold)).tracking(0.7)
                                     .foregroundStyle(accent)
                                 ForEach(Array(group.items.enumerated()), id: \.offset) { _, item in
                                     HStack(alignment: .firstTextBaseline, spacing: 8) {
                                         marker(item.marker)
                                             .transition(.scale.combined(with: .opacity))
-                                        Text(item.text)
+                                        Text(L10n.translateMoleString(item.text))
                                             .font(Brand.sans(12))
                                             .foregroundStyle(textColor(item.marker))
                                             .fixedSize(horizontal: false, vertical: true)
