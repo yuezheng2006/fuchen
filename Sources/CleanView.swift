@@ -55,9 +55,11 @@ struct CleanView: View {
     }
 
     private func confirmReal() {
-        let alert = NSAlert()
-        alert.messageText = L10n.cleanCachesTitle
-        alert.informativeText = """
+        // 确保在主线程上运行
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = L10n.cleanCachesTitle
+            alert.informativeText = """
 拂尘将以管理员权限运行清理命令。
 
 ⚠️ 清理系统级缓存时，macOS 可能要求授权2-3次
@@ -65,16 +67,18 @@ struct CleanView: View {
 
 缓存文件将被永久删除；安全规则仍然生效。
 """
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: L10n.clean)
-        alert.addButton(withTitle: L10n.cancel)
-        guard alert.runModal() == .alertFirstButtonReturn else { return }
-        withAnimation(.easeInOut(duration: 0.2)) { showStartAnimation = true }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            withAnimation(.easeOut(duration: 0.3)) {
-                mode = .real
-                runner.run(["clean"], elevated: true, label: L10n.cleaningCaches)
-                showStartAnimation = false
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: L10n.clean)
+            alert.addButton(withTitle: L10n.cancel)
+
+            let response = alert.runModal()
+            if response == .alertFirstButtonReturn {
+                DispatchQueue.main.async {
+                    withAnimation(.easeOut(duration: 0.3)) {
+                        self.mode = .real
+                        self.runner.run(["clean"], elevated: true, label: L10n.cleaningCaches)
+                    }
+                }
             }
         }
     }
