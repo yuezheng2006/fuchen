@@ -20,7 +20,7 @@ struct CleanView: View {
     var body: some View {
         if runner.phase == .idle {
             ToolHero(tool: .clean, title: Tool.clean.title, subtitle: Tool.clean.tagline) {
-                PillButton(title: L10n.cleanNow) { confirmReal() }
+                PillButton(title: L10n.cleanNow) { startCleanNow() }
                     .scaleEffect(showStartAnimation ? 0.95 : 1.0)
                 PillButton(title: L10n.preview, filled: false) { startDry() }
                     .scaleEffect(showStartAnimation ? 0.95 : 1.0)
@@ -49,10 +49,22 @@ struct CleanView: View {
         }
     }
 
+    private func startCleanNow() {
+        // 先预览，完成后用户可以选择清理
+        startDry()
+    }
+
     private func confirmReal() {
         let alert = NSAlert()
         alert.messageText = L10n.cleanCachesTitle
-        alert.informativeText = L10n.cleanCachesBody
+        alert.informativeText = """
+拂尘将以管理员权限运行清理命令。
+
+⚠️ 清理系统级缓存时，macOS 可能要求授权2-3次
+（这是系统安全机制，确保访问不同受保护目录时都获得授权）
+
+缓存文件将被永久删除；安全规则仍然生效。
+"""
         alert.alertStyle = .warning
         alert.addButton(withTitle: L10n.clean)
         alert.addButton(withTitle: L10n.cancel)
